@@ -48,7 +48,7 @@ void * filosofo_come(void * id){
 }
 int main(int argc, const char * argv[]) {
     
-    pthread_t * filosofos = (pthread_t *)malloc(sizeof(pthread_t)*100);
+    pthread_t * filosofos = (pthread_t *)malloc(100*sizeof(pthread_t));
     sem_init(&cuchillos, 0, 3);
     sem_init(&tenedores, 0, 3);//Inicializando
     sem_init(&sillas, 0, 4);//Inicializando
