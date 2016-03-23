@@ -20,10 +20,9 @@ int goOn = 1;
 void * filosofo_come(void *);
 void handleAlrm(int);
 void handleAlrm(int fd){
-    printf("El restaurante debe cerrarse en 30 segundos\n");
+    printf("YA NO SE ACEPTAN MAS CLIENTES\n");
+    printf("ESPERANDO A QUE SALGAN TODOS...\n");
     goOn = 0;
-    sleep(30);
-    raise(SIGKILL);
 }
 void * filosofo_come(void * id){
     int filosofo = (int) id;
