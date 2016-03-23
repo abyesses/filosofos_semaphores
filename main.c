@@ -53,16 +53,20 @@ int main(int argc, const char * argv[]) {
     sem_init(&sillas, 0, 4);//Inicializando
     signal(SIGALRM, handleAlrm);
     alarm(60);
-    int i=0;
+    int i;
     pthread_t *temp;
-    temp = filosofos;
-    
-    while (i <= 100 || !goOn ) {
+    //temp = filosofos;
+    for (temp = filosofos,i=0; temp < (filosofos+100); ++temp,++i) {
+        if (goOn) {
+            pthread_create(temp, NULL, filosofo_come,(void *) i);
+        }
+    }
+    /*while (i <= 100 || !goOn ) {
         ++temp;
-        pthread_create(temp, NULL, filosofo_come,(void *) i);
+        
         printf("I: %d\n",i);
         i++;
-    }
+    }*/
     for (int j=0; j< i; j++) {
         pthread_join(filosofos[j], NULL);
     }
