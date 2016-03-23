@@ -11,6 +11,7 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <semaphore.h>
+#include <signal.h>
 
 sem_t cuchillos;
 sem_t tenedores;
@@ -53,10 +54,8 @@ int main(int argc, const char * argv[]) {
     signal(SIGALRM, handleAlrm);
     alarm(60);
     int i;
-    while (goOn) {
-        pthread_t * f;
-        *(filosofos + i) = *f;
-        pthread_create(f, NULL, filosofo_come,NULL);
+    while (i<=100 || !goOn ) {
+        pthread_create(&filosofos[i], NULL, filosofo_come,(void*)i);
         i++;
     }
     for (int j=0; j<i; j++) {
