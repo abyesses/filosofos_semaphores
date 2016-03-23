@@ -53,12 +53,12 @@ int main(int argc, const char * argv[]) {
     sem_init(&sillas, 0, 4);//Inicializando
     signal(SIGALRM, handleAlrm);
     alarm(60);
-    int i;
-    while (i<=100 || !goOn ) {
-        pthread_create(&filosofos[i], NULL, filosofo_come,(void*)i);
+    int *i;
+    while (*i<=100 || !goOn ) {
+        pthread_create(&filosofos[*i], NULL, filosofo_come,(void *) i);
         i++;
     }
-    for (int j=0; j<i; j++) {
+    for (int j=0; j<*i; j++) {
         pthread_join(*(filosofos+j), NULL);
     }
     
