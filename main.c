@@ -43,15 +43,13 @@ int main(int argc, const char * argv[]) {
     
     pthread_t * filosofos = (pthread_t *)malloc(100*sizeof(pthread_t));
     sem_init(&cuchillos, 0, 3);
-    sem_init(&tenedores, 0, 3);//Inicializando
+    sem_init(&tenedores, 0, 3);
     sem_init(&sillas, 0, 4);//Inicializando
-    signal(SIGALRM, handleAlrm);
-    alarm(60);
     int i;
     pthread_t *temp;
     //temp = filosofos;
-    for (temp = filosofos,i=0; temp < (filosofos+100); ++temp,++i) {
-            pthread_create(temp, NULL, filosofo_come,(void *) i);
+    for (temp = filosofos,i=1; temp < (filosofos+100); ++temp,++i) {
+            pthread_create(temp, NULL, filosofo_come,(void *) i); //Creando hilos
     }
     /*while (i <= 100 || !goOn ) {
         ++temp;
