@@ -16,14 +16,8 @@
 sem_t cuchillos;
 sem_t tenedores;
 sem_t sillas;
-int goOn = 1;
+
 void * filosofo_come(void *);
-void handleAlrm(int);
-void handleAlrm(int fd){
-    printf("YA NO SE ACEPTAN MAS CLIENTES\n");
-    printf("ESPERANDO A QUE SALGAN TODOS...\n");
-    goOn = 0;
-}
 void * filosofo_come(void * id){
     int filosofo = (int) id;
     int tiempo_comiendo;
@@ -57,9 +51,7 @@ int main(int argc, const char * argv[]) {
     pthread_t *temp;
     //temp = filosofos;
     for (temp = filosofos,i=0; temp < (filosofos+100); ++temp,++i) {
-        if (goOn) {
             pthread_create(temp, NULL, filosofo_come,(void *) i);
-        }
     }
     /*while (i <= 100 || !goOn ) {
         ++temp;
