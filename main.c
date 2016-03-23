@@ -32,7 +32,7 @@ void * filosofo_come(void * id){
     printf("Cuchillo asignado al filósofo %d\n",filosofo);
     sem_wait(&tenedores);
     printf("Tenedor asignado al filósofo %d\n",filosofo);
-    tiempo_comiendo = rand()%5;
+    tiempo_comiendo = rand()%10+1;
     printf("El filósofo %d está comiendo por %d segundos\n",filosofo,tiempo_comiendo);
     sleep(tiempo_comiendo);
     sem_post(&tenedores);
@@ -42,7 +42,6 @@ void * filosofo_come(void * id){
     sem_post(&sillas);
     printf("Silla liberado por filósofo %d\n",filosofo);
     printf("El filósofo %d ha salido\n",filosofo);
-    
     pthread_exit(NULL);
 }
 int main(int argc, const char * argv[]) {
@@ -53,13 +52,17 @@ int main(int argc, const char * argv[]) {
     sem_init(&sillas, 0, 4);//Inicializando
     signal(SIGALRM, handleAlrm);
     alarm(60);
-    int *i;
-    while (*i<=100 || !goOn ) {
-        pthread_create(&filosofos[*i], NULL, filosofo_come,(void *) i);
+    int i=0;
+    pthread_t *temp;
+    temp = filosofos;
+    
+    while (i<=100 || !goOn ) {
+        ++temp;
+        pthread_create(temp, NULL, filosofo_come,(void *) i);
         i++;
     }
-    for (int j=0; j<*i; j++) {
-        pthread_join(*(filosofos+j), NULL);
+    for (int j=0; j< i; j++) {
+        pthread_join(filosofos[j], NULL);
     }
     
     sem_destroy(&cuchillos);//Destuyendo
