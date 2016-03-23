@@ -71,7 +71,7 @@ int main(int argc, const char * argv[]) {
     sem_destroy(&tenedores);
     sem_destroy(&sillas);
     
-    //free(filosofos);
+    free(filosofos);
     return 0;
 }
 
