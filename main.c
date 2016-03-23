@@ -58,9 +58,10 @@ int main(int argc, const char * argv[]) {
     pthread_t *temp;
     temp = filosofos;
     
-    while (i<=100 || !goOn ) {
+    while (i <= 100 || !goOn ) {
         ++temp;
         pthread_create(temp, NULL, filosofo_come,(void *) i);
+        printf("I: %d\n",i);
         i++;
     }
     for (int j=0; j< i; j++) {
