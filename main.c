@@ -22,20 +22,14 @@ void * filosofo_come(void * id){
     int filosofo = (int) id;
     int tiempo_comiendo;
     sem_wait(&sillas);
-    printf("Silla asignada al filósofo %d\n",filosofo);
     sem_wait(&cuchillos);
-    printf("Cuchillo asignado al filósofo %d\n",filosofo);
     sem_wait(&tenedores);
-    printf("Tenedor asignado al filósofo %d\n",filosofo);
     tiempo_comiendo = rand()%10+1;
     printf("El filósofo %d está comiendo por %d segundos\n",filosofo,tiempo_comiendo);
     sleep(tiempo_comiendo);
     sem_post(&tenedores);
-    printf("Tenedor liberado por filósofo %d\n",filosofo);
     sem_post(&cuchillos);
-    printf("Cuchillo liberado por filósofo %d\n",filosofo);
     sem_post(&sillas);
-    printf("Silla liberado por filósofo %d\n",filosofo);
     printf("El filósofo %d ha salido\n",filosofo);
     pthread_exit(NULL);
 }
